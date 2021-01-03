@@ -66,26 +66,36 @@ const CartProvider: React.FC = ({ children }) => {
 
   const increment = useCallback(
     async id => {
-      const newProducts = products.map(product =>
+      const newProductsQtt = products.map(product =>
         product.id === id
           ? { ...product, quantity: product.quantity + 1 }
           : product,
       );
 
-      setProducts(newProducts);
+      setProducts(newProductsQtt);
+
+      await AsyncStorage.setItem(
+        '@GoMarketplace:products',
+        JSON.stringify(newProductsQtt),
+      );
     },
     [products],
   );
 
   const decrement = useCallback(
     async id => {
-      const newProducts = products.map(product =>
+      const newProductsQtt = products.map(product =>
         product.id === id
           ? { ...product, quantity: product.quantity - 1 }
           : product,
       );
 
-      setProducts(newProducts);
+      setProducts(newProductsQtt);
+
+      await AsyncStorage.setItem(
+        '@GoMarketplace:products',
+        JSON.stringify(newProductsQtt),
+      );
     },
     [products],
   );
